@@ -14,7 +14,7 @@ Read the documentation about hx-trigger via https://htmx.org/attributes/hx-trigg
 Read the documentation about hx-post via https://htmx.org/attributes/hx-post/
 
 
-Case utilisation
+Use case
 
 urls.py
 ```
@@ -72,6 +72,7 @@ register.html
 -- hx-delete
 Read the documentation about hx-delete https://htmx.org/attributes/hx-delete/
 
+Use case
 urls.py
 Adding url path in htmx_urlspatterns
 ```
