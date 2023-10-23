@@ -3,14 +3,14 @@ htmx gives you access to AJAX, CSS Transitions, WebSockets and Server Sent Event
 htmx is small (~14k min.gz’d), dependency-free, extendable, IE11 compatible & has reduced code base sizes by 67% when compared with react
 
 Essential HTMX attributes
-hx-target:
+-- hx-target:
 Read the documentation about hx-target via https://htmx.org/attributes/hx-target/
 
 
-hx-trigger
+-- hx-trigger: 
 Read the documentation about hx-trigger via https://htmx.org/attributes/hx-trigger/
 
-hx-post
+-- hx-post: 
 Read the documentation about hx-post via https://htmx.org/attributes/hx-post/
 
 
@@ -68,3 +68,46 @@ register.html
     <button type="submit" class="btn btn-success mt-2">Register</button>
 </form>
 ```
+
+-- hx-delete
+Read the documentation about hx-delete https://htmx.org/attributes/hx-delete/
+
+urls.py
+Adding url path in htmx_urlspatterns
+```
+path('delete-film/<int:pk>/', views.delete_film, name='delete-film')
+```
+
+views.py
+```
+def delete_film(request, pk):
+    # remove the film from the user's list
+    request.user.films.remove(pk)
+
+    # return template fragment with all the user's films
+    films = request.user.films.all()
+    return render(request, 'partials/film-list.html', {'films': films})
+```
+
+film-list.html
+```
+{% if films %}
+
+    {% csrf_token %}
+    <ul class="list-group col-4">
+    {% for film in films %}
+        <li class="list-group-item">
+            {{ film.name }}
+            <span class="badge badge-danger badge-pill" 
+                style="cursor: pointer;"
+                hx-delete="{% url 'delete-film' film.pk %}"
+                hx-target="#film-list"
+                hx-confirm="Are you sure you wish to delete?">X</span>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You do not have any films in your list</p>
+{% endif %}
+```
+
