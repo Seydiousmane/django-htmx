@@ -1,0 +1,11 @@
+db.sqlite3
+__pycache__
+*.pyc
+notes.txt
+media/
+
+/ films/*
+!/films/migrations/__init__.py
+
+films/__pycache__
+htmx/__pycache__
